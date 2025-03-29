@@ -8,7 +8,9 @@
     "build": "tsc && vite build",
     "build:dev": "KEEP_SOURCE_MAP=true pnpm build",
     "publish:dry-run": "pnpm build && pnpm publish --dry-run",
-    "publish:prod": "pnpm build && pnpm publish"
+    "publish:prod": "pnpm build && pnpm publish",
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "devDependencies": {
     "@types/node": "^22.10.7",
