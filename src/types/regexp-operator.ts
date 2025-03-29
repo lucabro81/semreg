@@ -1,0 +1,1 @@
+export type RegexOperator = (pattern: string) => string;
