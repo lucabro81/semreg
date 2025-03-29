@@ -5,14 +5,14 @@ import { RegexOperator } from "../types";
  * @returns RegexOperator for alphabetic characters
  */
 export const letters = (): RegexOperator =>
-  (pattern: string) => `${pattern}]`;
+  (pattern: string) => `${pattern}[a-zA-Z]`;
 
 /**
  * Matches any numeric digit (0-9)
  * @returns RegexOperator for numeric digits
  */
 export const digits = (): RegexOperator =>
-  (pattern: string) => `${pattern}`;
+  (pattern: string) => `${pattern}[0-9]`;
 
 /**
  * Escapes special regex characters in a string
@@ -20,7 +20,7 @@ export const digits = (): RegexOperator =>
  * @returns Escaped string
  */
 function escapeRegExp(str: string): string {
-  return str;
+  return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
 /**
@@ -29,4 +29,4 @@ function escapeRegExp(str: string): string {
  * @returns RegexOperator for the literal string
  */
 export const literal = (str: string): RegexOperator =>
-  (pattern: string) => `${pattern}`;
+  (pattern: string) => `${pattern}${escapeRegExp(str)}`;
