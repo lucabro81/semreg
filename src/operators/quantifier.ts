@@ -1,5 +1,13 @@
-import { RegexComposer, RegexOperator } from "../types";
+import { QuantificationOptions, RegexComposer, RegexOperator } from "../types";
 import { regex } from "../core";
+
+const isAtLeast = (options: QuantificationOptions) => {
+  return 'max' in options && (options.max === undefined || options.max === null)
+}
+
+const isMinDifferentFromMax = (options: QuantificationOptions) => {
+  return options.max !== undefined && options.min !== options.max
+}
 
 /**
  * Matches one or more occurrences of the pattern
@@ -24,3 +32,56 @@ export const zeroOrMore = (component: RegexComposer): RegexOperator => {
     return `${pattern}${componentPattern}*`;
   };
 }
+
+/**
+ * Matches repeated occurrences of the pattern according to the specified options
+ * @param component The pattern to repeat
+ * @param options Quantification options: min (required) and max (optional)
+ * @returns RegexOperator for the specified repetition
+ */
+export const repeat = (
+  component: RegexComposer,
+  options: QuantificationOptions
+): RegexOperator => {
+  return (pattern: string) => {
+    const componentPattern = regex(component).source;
+
+    if (isAtLeast(options)) {
+      return `${pattern}${componentPattern}{${options.min},}`;
+    }
+    else if (isMinDifferentFromMax(options)) {
+      return `${pattern}${componentPattern}{${options.min},${options.max}}`;
+    }
+    else {
+      return `${pattern}${componentPattern}{${options.min}}`;
+    }
+  };
+};
+
+/**
+ * Matches exactly n occurrences of the pattern
+ * @param component The pattern to repeat
+ * @param count Exact number of repetitions
+ * @returns RegexOperator for exactly count occurrences
+ */
+export const exactly = (component: RegexComposer, count: number): RegexOperator =>
+  repeat(component, { min: count });
+
+/**
+ * Matches at least n occurrences of the pattern
+ * @param component The pattern to repeat
+ * @param count Minimum number of repetitions
+ * @returns RegexOperator for at least count occurrences
+ */
+export const atLeast = (component: RegexComposer, count: number): RegexOperator =>
+  repeat(component, { min: count, max: undefined });
+
+/**
+ * Matches between min and max occurrences of the pattern
+ * @param component The pattern to repeat
+ * @param min Minimum number of repetitions
+ * @param max Maximum number of repetitions
+ * @returns RegexOperator for between min and max occurrences
+ */
+export const between = (component: RegexComposer, min: number, max: number): RegexOperator =>
+  repeat(component, { min, max });
