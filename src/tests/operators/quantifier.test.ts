@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { oneOrMore, zeroOrMore, repeat, between, atLeast, exactly } from '../../operators/quantifier';
+import { oneOrMore, zeroOrMore, repeat, repeatBetween, repeatAtLeast, repeatExactly } from '../../operators/quantifier';
 import { letters, digits } from '../../operators/character';
 
 describe('Quantifier Operators', () => {
@@ -58,24 +58,24 @@ describe('Quantifier Operators', () => {
     });
   });
 
-  describe('exactly', () => {
+  describe('repeatExactly', () => {
     it('should create an exact quantifier', () => {
-      expect(exactly(letters(), 3)('')).toBe('[a-zA-Z]{3}');
-      expect(exactly(digits(), 5)('abc')).toBe('abc[0-9]{5}');
+      expect(repeatExactly(letters(), 3)('')).toBe('[a-zA-Z]{3}');
+      expect(repeatExactly(digits(), 5)('abc')).toBe('abc[0-9]{5}');
     });
   });
 
-  describe('atLeast', () => {
+  describe('repeatAtLeast', () => {
     it('should create an at-least quantifier', () => {
-      expect(atLeast(letters(), 2)('')).toBe('[a-zA-Z]{2,}');
-      expect(atLeast(digits(), 4)('xyz')).toBe('xyz[0-9]{4,}');
+      expect(repeatAtLeast(letters(), 2)('')).toBe('[a-zA-Z]{2,}');
+      expect(repeatAtLeast(digits(), 4)('xyz')).toBe('xyz[0-9]{4,}');
     });
   });
 
-  describe('between', () => {
+  describe('repeatBetween', () => {
     it('should create a range quantifier', () => {
-      expect(between(letters(), 2, 5)('')).toBe('[a-zA-Z]{2,5}');
-      expect(between(digits(), 1, 3)('xyz')).toBe('xyz[0-9]{1,3}');
+      expect(repeatBetween(letters(), 2, 5)('')).toBe('[a-zA-Z]{2,5}');
+      expect(repeatBetween(digits(), 1, 3)('xyz')).toBe('xyz[0-9]{1,3}');
     });
   });
 });

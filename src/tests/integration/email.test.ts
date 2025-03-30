@@ -3,7 +3,7 @@ import { regex } from "../../core";
 import { letters, digits, literal } from "../../operators/character";
 import { anyOf } from "../../operators/compositor";
 import { startOfLine, endOfLine } from "../../operators/position";
-import { oneOrMore, atLeast } from "../../operators/quantifier";
+import { oneOrMore, repeatAtLeast } from "../../operators/quantifier";
 
 describe('Email Regex Integration Test', () => {
   it('should build a working email validation regex', () => {
@@ -26,7 +26,7 @@ describe('Email Regex Integration Test', () => {
         )
       ),
       literal('.'),
-      atLeast(letters(), 2),
+      repeatAtLeast(letters(), 2),
       endOfLine
     );
 
@@ -63,7 +63,7 @@ describe('Email Regex Integration Test', () => {
         )
       ),
       literal('.'),
-      atLeast(letters(), 2),
+      repeatAtLeast(letters(), 2),
       endOfLine
     );
 

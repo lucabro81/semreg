@@ -64,7 +64,7 @@ export const repeat = (
  * @param count Exact number of repetitions
  * @returns RegexOperator for exactly count occurrences
  */
-export const exactly = (component: RegexComposer, count: number): RegexOperator =>
+export const repeatExactly = (component: RegexComposer, count: number): RegexOperator =>
   repeat(component, { min: count });
 
 /**
@@ -73,7 +73,7 @@ export const exactly = (component: RegexComposer, count: number): RegexOperator 
  * @param count Minimum number of repetitions
  * @returns RegexOperator for at least count occurrences
  */
-export const atLeast = (component: RegexComposer, count: number): RegexOperator =>
+export const repeatAtLeast = (component: RegexComposer, count: number): RegexOperator =>
   repeat(component, { min: count, max: undefined });
 
 /**
@@ -83,5 +83,5 @@ export const atLeast = (component: RegexComposer, count: number): RegexOperator 
  * @param max Maximum number of repetitions
  * @returns RegexOperator for between min and max occurrences
  */
-export const between = (component: RegexComposer, min: number, max: number): RegexOperator =>
+export const repeatBetween = (component: RegexComposer, min: number, max: number): RegexOperator =>
   repeat(component, { min, max });
