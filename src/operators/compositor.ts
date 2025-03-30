@@ -1,6 +1,6 @@
 import { regex } from "../core";
 import { RegexComposer, RegexOperator } from "../types"
-import { withEmptyCheck } from "../utils/common";
+import { withChecks } from "../utils/common";
 const isACharacterClass = (pattern: string) =>
   pattern.startsWith('[') && pattern.endsWith(']');
 
@@ -34,13 +34,8 @@ const areThereComplexCharacterClasses = (parts: string[]) => {
  * @param components Components to match
  * @returns RegexOperator for matching any of the components
  */
-export const anyOf = withEmptyCheck((...components: RegexComposer[]): RegexOperator => {
+export const anyOf = withChecks((...components: RegexComposer[]): RegexOperator => {
   return (pattern: string) => {
-
-    if (components.length === 1) {
-      const singlePattern = regex(components[0]).source;
-      return `${pattern}${singlePattern}`;
-    }
 
     const parts: string[] = extractCharacterClassContent(components);
 

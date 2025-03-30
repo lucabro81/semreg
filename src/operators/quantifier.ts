@@ -1,5 +1,5 @@
 import { QuantificationOptions, RegexComposer, RegexOperator } from "../types";
-import { regex } from "../core";
+import { componentToRegex } from "../utils/common";
 
 const isAtLeast = (options: QuantificationOptions) => {
   return 'max' in options && (options.max === undefined || options.max === null)
@@ -16,7 +16,7 @@ const isMinDifferentFromMax = (options: QuantificationOptions) => {
  */
 export const oneOrMore = (component: RegexComposer): RegexOperator => {
   return (pattern: string) => {
-    const componentPattern = regex(component).source;
+    const componentPattern = componentToRegex(component);
     return `${pattern}${componentPattern}+`;
   };
 }
@@ -28,7 +28,7 @@ export const oneOrMore = (component: RegexComposer): RegexOperator => {
  */
 export const zeroOrMore = (component: RegexComposer): RegexOperator => {
   return (pattern: string) => {
-    const componentPattern = regex(component).source;
+    const componentPattern = componentToRegex(component);
     return `${pattern}${componentPattern}*`;
   };
 }
@@ -44,7 +44,7 @@ export const repeat = (
   options: QuantificationOptions
 ): RegexOperator => {
   return (pattern: string) => {
-    const componentPattern = regex(component).source;
+    const componentPattern = componentToRegex(component);
 
     if (isAtLeast(options)) {
       return `${pattern}${componentPattern}{${options.min},}`;
