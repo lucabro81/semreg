@@ -6,7 +6,8 @@
   "main": "./dist/main.js",
   "types": "./dist/main.d.ts",
   "files": [
-    "dist"
+    "dist",
+    "!dist/tests"
   ],
   "scripts": {
     "dev": "tsc --watch",
