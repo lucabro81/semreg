@@ -8,6 +8,12 @@ export const letters = (): RegexOperator =>
   (pattern: string) => `${pattern}[a-zA-Z]`;
 
 /**
+ * Corrisponde a qualsiasi lettera minuscola (a-z)
+ * @example regex(lowerLetters())  // /[a-z]/
+ */
+export const lowerLetters = (): string => "[a-z]";
+
+/**
  * Matches any numeric digit (0-9)
  * @returns RegexOperator for numeric digits
  */

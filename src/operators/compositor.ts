@@ -41,6 +41,7 @@ export const anyOf = (...components: RegexComposer[]): RegexOperator => {
     }
 
     if (components.length === 1) {
+      // If there's only one component, just apply it directly
       const singlePattern = regex(components[0]).source;
       return `${pattern}${singlePattern}`;
     }
