@@ -24,7 +24,7 @@ describe('Compositor Operators', () => {
     });
 
     it('should handle complex combinations', () => {
-      expect(anyOf(letters(), digits(), literal('._-'))('')).toBe('[a-zA-Z0-9\\._\\-]');
+      expect(anyOf(letters(), digits(), literal('._-'))('')).toBe('[a-zA-Z0-9\\._-]');
     });
   });
 });

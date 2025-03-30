@@ -69,7 +69,7 @@ describe('Email Regex Integration Test', () => {
 
     // Verifichiamo che il pattern regex generato corrisponda a ciò che ci aspettiamo
     expect(emailRegex.source).toBe(
-      '^[a-zA-Z0-9\\._%\\+\\-]+@[a-zA-Z0-9\\.\\-]+\\.[a-zA-Z]{2,}$'
+      '^[a-zA-Z0-9\\._%\\+-]+@[a-zA-Z0-9\\.-]+\\.[a-zA-Z]{2,}$'
     );
   });
 });

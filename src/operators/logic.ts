@@ -8,9 +8,7 @@ import { withChecks, componentsToRegex } from "../utils/common";
  */
 export const or = withChecks((...components: RegexComposer[]): RegexOperator => {
   return (pattern: string) => {
-
     const alternatives = componentsToRegex(components);
-
     return `${pattern}(?:${alternatives.join('|')})`;
   };
 });
