@@ -1,6 +1,8 @@
 import { describe, it, expect } from 'vitest';
-import { oneOrMore, zeroOrMore, repeat, repeatBetween, repeatAtLeast, repeatExactly } from '../../operators/quantifier';
+import { oneOrMore, zeroOrMore, repeat, repeatBetween, repeatAtLeast, repeatExactly, optional } from '../../operators/quantifier';
 import { letters, digits } from '../../operators/character';
+import { group } from '../../operators/group';
+import { literal } from '../../operators/character';
 
 describe('Quantifier Operators', () => {
   describe('oneOrMore', () => {
@@ -76,6 +78,27 @@ describe('Quantifier Operators', () => {
     it('should create a range quantifier', () => {
       expect(repeatBetween(letters(), 2, 5)('')).toBe('[a-zA-Z]{2,5}');
       expect(repeatBetween(digits(), 1, 3)('xyz')).toBe('xyz[0-9]{1,3}');
+    });
+  });
+
+  describe('Optional Operator', () => {
+    describe('optional', () => {
+      it('should add ? quantifier to the pattern', () => {
+        expect(optional(letters())('')).toBe('[a-zA-Z]?');
+        expect(optional(digits())('')).toBe('[0-9]?');
+      });
+
+      it('should append to existing pattern', () => {
+        expect(optional(letters())('abc')).toBe('abc[a-zA-Z]?');
+      });
+
+      it('should work with complex patterns', () => {
+        expect(optional(group(letters(), digits()))('')).toBe('([a-zA-Z][0-9])?');
+      });
+
+      it('should work with literals', () => {
+        expect(optional(literal('www.'))('')).toBe('www\\.?');
+      });
     });
   });
 });

@@ -34,6 +34,18 @@ export const zeroOrMore = (component: RegexComposer): RegexOperator => {
 }
 
 /**
+ * Makes the pattern optional (matches zero or one occurrence)
+ * @param component The pattern to make optional
+ * @returns RegexOperator for optional pattern
+ */
+export const optional = (component: RegexComposer): RegexOperator => {
+  return (pattern: string) => {
+    const componentPattern = componentToRegex(component);
+    return `${pattern}${componentPattern}?`;
+  };
+}
+
+/**
  * Matches repeated occurrences of the pattern according to the specified options
  * @param component The pattern to repeat
  * @param options Quantification options: min (required) and max (optional)
