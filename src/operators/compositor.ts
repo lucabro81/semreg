@@ -1,6 +1,6 @@
 import { regex } from "../core";
 import { RegexComposer, RegexOperator } from "../types"
-import { withChecks } from "../utils/common";
+import { componentsToRegex, withChecks } from "../utils/common";
 const isACharacterClass = (pattern: string) =>
   pattern.startsWith('[') && pattern.endsWith(']');
 
@@ -45,4 +45,19 @@ export const anyOf = withChecks((...components: RegexComposer[]): RegexOperator 
       return `${pattern}[${parts.join('')}]`;
     }
   }
+});
+
+/**
+ * Creates a pattern that matches a sequence of components in order
+ * @param components Components to match in sequence
+ * @returns RegexOperator for matching the sequence
+ */
+export const sequence = withChecks((...components: RegexComposer[]): RegexOperator => {
+  return (pattern: string) => {
+    // Convert each component to its regex representation
+    const sequenceParts = componentsToRegex(components);
+
+    // Join the sequence parts without any separator
+    return `${pattern}${sequenceParts.join('')}`;
+  };
 });
