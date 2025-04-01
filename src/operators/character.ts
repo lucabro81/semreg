@@ -1,27 +1,27 @@
 import { RegexOperator } from "../types";
 
 /**
- * Matches any alphabetic character (a-z, A-Z)
+ * @description Matches any alphabetic character (a-z, A-Z)
  * @returns RegexOperator for alphabetic characters
  */
 export const letters = (): RegexOperator =>
   (pattern: string) => `${pattern}[a-zA-Z]`;
 
 /**
- * Corrisponde a qualsiasi lettera minuscola (a-z)
- * @example regex(lowerLetters())  // /[a-z]/
+ * @description Matches any lowercase letter (a-z)
+ * @returns RegexOperator for lowercase letters
  */
 export const lowerLetters = (): string => "[a-z]";
 
 /**
- * Matches any numeric digit (0-9)
+ * @description Matches any numeric digit (0-9)
  * @returns RegexOperator for numeric digits
  */
 export const digits = (): RegexOperator =>
   (pattern: string) => `${pattern}[0-9]`;
 
 /**
- * Escapes special regex characters in a string
+ * @description Escapes special regex characters in a string
  * @param str String to escape
  * @returns Escaped string
  */
@@ -30,7 +30,7 @@ function escapeRegExp(str: string): string {
 }
 
 /**
- * Matches the literal string provided
+ * @description Matches the literal string provided
  * @param str String to match literally
  * @returns RegexOperator for the literal string
  */

@@ -30,10 +30,12 @@
     "publish:dry-run": "pnpm build && pnpm publish --dry-run",
     "publish:prod": "pnpm build && pnpm publish",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "extract-docs": "NODE_OPTIONS=\"--loader ts-node/esm\" ts-node --project scripts/tsconfig.json scripts/extract-docs.ts"
   },
   "devDependencies": {
     "@types/node": "^22.10.7",
+    "ts-node": "^10.9.2",
     "typescript": "~5.7.2",
     "vite": "^6.2.0",
     "vite-plugin-dts": "^3.6.0",

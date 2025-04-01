@@ -5,7 +5,7 @@ const isACharacterClass = (pattern: string) =>
   pattern.startsWith('[') && pattern.endsWith(']');
 
 /**
- * Extract character class content from patterns like [a-z], [0-9], etc.
+ * @description Extract character class content from patterns like [a-z], [0-9], etc.
  * @param components Components to extract from
  * @returns Array of character class contents
  */
@@ -30,7 +30,7 @@ const areThereComplexCharacterClasses = (parts: string[]) => {
 }
 
 /**
- * Creates a pattern that matches any of the given components
+ * @description Creates a pattern that matches any of the given components
  * @param components Components to match
  * @returns RegexOperator for matching any of the components
  */
@@ -48,7 +48,7 @@ export const anyOf = withChecks((...components: RegexComposer[]): RegexOperator 
 });
 
 /**
- * Creates a pattern that matches a sequence of components in order
+ * @description Creates a pattern that matches a sequence of components in order
  * @param components Components to match in sequence
  * @returns RegexOperator for matching the sequence
  */

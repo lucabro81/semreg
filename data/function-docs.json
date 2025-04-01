@@ -1,0 +1,435 @@
+[
+  {
+    "name": "regex",
+    "description": "Compose a regex from an array of components",
+    "params": [
+      {
+        "name": "components",
+        "description": "",
+        "type": "RegexComposer[]"
+      },
+      {
+        "name": "components",
+        "description": "The components to compose the regex from",
+        "type": "RegexComposer[]"
+      }
+    ],
+    "return": {
+      "description": "A new RegExp object",
+      "type": "RegExp"
+    }
+  },
+  {
+    "name": "letters",
+    "description": "Matches any alphabetic character (a-z, A-Z)",
+    "params": [],
+    "return": {
+      "description": "RegexOperator for alphabetic characters"
+    }
+  },
+  {
+    "name": "lowerLetters",
+    "description": "Matches any lowercase letter (a-z)",
+    "params": [],
+    "return": {
+      "description": "RegexOperator for lowercase letters"
+    }
+  },
+  {
+    "name": "digits",
+    "description": "Matches any numeric digit (0-9)",
+    "params": [],
+    "return": {
+      "description": "RegexOperator for numeric digits"
+    }
+  },
+  {
+    "name": "escapeRegExp",
+    "description": "Escapes special regex characters in a string",
+    "params": [
+      {
+        "name": "str",
+        "description": "",
+        "type": "string"
+      },
+      {
+        "name": "str",
+        "description": "String to escape"
+      }
+    ],
+    "return": {
+      "description": "Escaped string"
+    }
+  },
+  {
+    "name": "literal",
+    "description": "Matches the literal string provided",
+    "params": [
+      {
+        "name": "str",
+        "description": "",
+        "type": "string"
+      },
+      {
+        "name": "str",
+        "description": "String to match literally"
+      }
+    ],
+    "return": {
+      "description": "RegexOperator for the literal string"
+    }
+  },
+  {
+    "name": "isACharacterClass",
+    "description": "",
+    "params": [
+      {
+        "name": "pattern",
+        "description": "",
+        "type": "string"
+      }
+    ],
+    "return": {
+      "description": ""
+    }
+  },
+  {
+    "name": "extractCharacterClassContent",
+    "description": "Extract character class content from patterns like [a-z], [0-9], etc.",
+    "params": [
+      {
+        "name": "components",
+        "description": "",
+        "type": "RegexComposer[]"
+      },
+      {
+        "name": "components",
+        "description": "Components to extract from"
+      }
+    ],
+    "return": {
+      "description": "Array of character class contents"
+    }
+  },
+  {
+    "name": "areThereComplexCharacterClasses",
+    "description": "",
+    "params": [
+      {
+        "name": "parts",
+        "description": "",
+        "type": "string[]"
+      }
+    ],
+    "return": {
+      "description": ""
+    }
+  },
+  {
+    "name": "startOfLine",
+    "description": "Matches the start of a line (^)",
+    "params": [
+      {
+        "name": "pattern",
+        "description": "",
+        "type": "string"
+      },
+      {
+        "name": "pattern",
+        "description": "- The pattern to match"
+      }
+    ],
+    "return": {
+      "description": "The regex operator"
+    }
+  },
+  {
+    "name": "endOfLine",
+    "description": "Matches the end of a line ($)",
+    "params": [
+      {
+        "name": "pattern",
+        "description": "",
+        "type": "string"
+      },
+      {
+        "name": "pattern",
+        "description": "- The pattern to match"
+      }
+    ],
+    "return": {
+      "description": "The regex operator"
+    }
+  },
+  {
+    "name": "wordBoundary",
+    "description": "Matches a word boundary",
+    "params": [
+      {
+        "name": "pattern",
+        "description": "",
+        "type": "string"
+      },
+      {
+        "name": "pattern",
+        "description": "- The pattern to match"
+      }
+    ],
+    "return": {
+      "description": "The regex operator"
+    }
+  },
+  {
+    "name": "nonWordBoundary",
+    "description": "Matches a non-word boundary",
+    "params": [
+      {
+        "name": "pattern",
+        "description": "",
+        "type": "string"
+      },
+      {
+        "name": "pattern",
+        "description": "- The pattern to match"
+      }
+    ],
+    "return": {
+      "description": "The regex operator"
+    }
+  },
+  {
+    "name": "startOfInput",
+    "description": "Matches the start of the input, ignoring newlines",
+    "params": [
+      {
+        "name": "pattern",
+        "description": "",
+        "type": "string"
+      },
+      {
+        "name": "pattern",
+        "description": "- The pattern to match"
+      }
+    ],
+    "return": {
+      "description": "The regex operator"
+    }
+  },
+  {
+    "name": "endOfInput",
+    "description": "Matches the end of the input, ignoring newlines",
+    "params": [
+      {
+        "name": "pattern",
+        "description": "",
+        "type": "string"
+      },
+      {
+        "name": "pattern",
+        "description": "- The pattern to match"
+      }
+    ],
+    "return": {
+      "description": "The regex operator"
+    }
+  },
+  {
+    "name": "isAtLeast",
+    "description": "",
+    "params": [
+      {
+        "name": "options",
+        "description": "",
+        "type": "QuantificationOptions"
+      }
+    ],
+    "return": {
+      "description": ""
+    }
+  },
+  {
+    "name": "isMinDifferentFromMax",
+    "description": "",
+    "params": [
+      {
+        "name": "options",
+        "description": "",
+        "type": "QuantificationOptions"
+      }
+    ],
+    "return": {
+      "description": ""
+    }
+  },
+  {
+    "name": "oneOrMore",
+    "description": "Matches one or more occurrences of the pattern",
+    "params": [
+      {
+        "name": "component",
+        "description": "",
+        "type": "RegexComposer"
+      },
+      {
+        "name": "component",
+        "description": "The pattern to repeat"
+      }
+    ],
+    "return": {
+      "description": "RegexOperator for one or more occorrenze"
+    }
+  },
+  {
+    "name": "zeroOrMore",
+    "description": "Matches zero or more occurrences of the pattern",
+    "params": [
+      {
+        "name": "component",
+        "description": "",
+        "type": "RegexComposer"
+      },
+      {
+        "name": "component",
+        "description": "The pattern to repeat"
+      }
+    ],
+    "return": {
+      "description": "RegexOperator for zero or more occurrences"
+    }
+  },
+  {
+    "name": "optional",
+    "description": "Makes the pattern optional (matches zero or one occurrence)",
+    "params": [
+      {
+        "name": "component",
+        "description": "",
+        "type": "RegexComposer"
+      },
+      {
+        "name": "component",
+        "description": "The pattern to make optional"
+      }
+    ],
+    "return": {
+      "description": "RegexOperator for optional pattern"
+    }
+  },
+  {
+    "name": "repeat",
+    "description": "Matches repeated occurrences of the pattern according to the specified options",
+    "params": [
+      {
+        "name": "component",
+        "description": "",
+        "type": "RegexComposer"
+      },
+      {
+        "name": "options",
+        "description": "",
+        "type": "QuantificationOptions"
+      },
+      {
+        "name": "component",
+        "description": "The pattern to repeat"
+      },
+      {
+        "name": "options",
+        "description": "Quantification options: min (required) and max (optional)"
+      }
+    ],
+    "return": {
+      "description": "RegexOperator for the specified repetition"
+    }
+  },
+  {
+    "name": "repeatExactly",
+    "description": "Matches exactly n occurrences of the pattern",
+    "params": [
+      {
+        "name": "component",
+        "description": "",
+        "type": "RegexComposer"
+      },
+      {
+        "name": "count",
+        "description": "",
+        "type": "number"
+      },
+      {
+        "name": "component",
+        "description": "The pattern to repeat"
+      },
+      {
+        "name": "count",
+        "description": "Exact number of repetitions"
+      }
+    ],
+    "return": {
+      "description": "RegexOperator for exactly count occurrences"
+    }
+  },
+  {
+    "name": "repeatAtLeast",
+    "description": "Matches at least n occurrences of the pattern",
+    "params": [
+      {
+        "name": "component",
+        "description": "",
+        "type": "RegexComposer"
+      },
+      {
+        "name": "count",
+        "description": "",
+        "type": "number"
+      },
+      {
+        "name": "component",
+        "description": "The pattern to repeat"
+      },
+      {
+        "name": "count",
+        "description": "Minimum number of repetitions"
+      }
+    ],
+    "return": {
+      "description": "RegexOperator for at least count occurrences"
+    }
+  },
+  {
+    "name": "repeatBetween",
+    "description": "Matches between min and max occurrences of the pattern",
+    "params": [
+      {
+        "name": "component",
+        "description": "",
+        "type": "RegexComposer"
+      },
+      {
+        "name": "min",
+        "description": "",
+        "type": "number"
+      },
+      {
+        "name": "max",
+        "description": "",
+        "type": "number"
+      },
+      {
+        "name": "component",
+        "description": "The pattern to repeat"
+      },
+      {
+        "name": "min",
+        "description": "Minimum number of repetitions"
+      },
+      {
+        "name": "max",
+        "description": "Maximum number of repetitions"
+      }
+    ],
+    "return": {
+      "description": "RegexOperator for between min and max occurrences"
+    }
+  }
+]

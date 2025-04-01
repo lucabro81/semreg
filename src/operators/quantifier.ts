@@ -10,7 +10,7 @@ const isMinDifferentFromMax = (options: QuantificationOptions) => {
 }
 
 /**
- * Matches one or more occurrences of the pattern
+ * @description Matches one or more occurrences of the pattern
  * @param component The pattern to repeat
  * @returns RegexOperator for one or more occorrenze
  */
@@ -22,7 +22,7 @@ export const oneOrMore = (component: RegexComposer): RegexOperator => {
 }
 
 /**
- * Matches zero or more occurrences of the pattern
+ * @description Matches zero or more occurrences of the pattern
  * @param component The pattern to repeat
  * @returns RegexOperator for zero or more occurrences
  */
@@ -34,7 +34,7 @@ export const zeroOrMore = (component: RegexComposer): RegexOperator => {
 }
 
 /**
- * Makes the pattern optional (matches zero or one occurrence)
+ * @description Makes the pattern optional (matches zero or one occurrence)
  * @param component The pattern to make optional
  * @returns RegexOperator for optional pattern
  */
@@ -46,7 +46,7 @@ export const optional = (component: RegexComposer): RegexOperator => {
 }
 
 /**
- * Matches repeated occurrences of the pattern according to the specified options
+ * @description Matches repeated occurrences of the pattern according to the specified options
  * @param component The pattern to repeat
  * @param options Quantification options: min (required) and max (optional)
  * @returns RegexOperator for the specified repetition
@@ -71,7 +71,7 @@ export const repeat = (
 };
 
 /**
- * Matches exactly n occurrences of the pattern
+ * @description Matches exactly n occurrences of the pattern
  * @param component The pattern to repeat
  * @param count Exact number of repetitions
  * @returns RegexOperator for exactly count occurrences
@@ -80,7 +80,7 @@ export const repeatExactly = (component: RegexComposer, count: number): RegexOpe
   repeat(component, { min: count });
 
 /**
- * Matches at least n occurrences of the pattern
+ * @description Matches at least n occurrences of the pattern
  * @param component The pattern to repeat
  * @param count Minimum number of repetitions
  * @returns RegexOperator for at least count occurrences
@@ -89,7 +89,7 @@ export const repeatAtLeast = (component: RegexComposer, count: number): RegexOpe
   repeat(component, { min: count, max: undefined });
 
 /**
- * Matches between min and max occurrences of the pattern
+ * @description Matches between min and max occurrences of the pattern
  * @param component The pattern to repeat
  * @param min Minimum number of repetitions
  * @param max Maximum number of repetitions

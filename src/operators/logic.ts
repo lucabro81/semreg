@@ -2,7 +2,7 @@ import { RegexComposer, RegexOperator } from "../types";
 import { withChecks, componentsToRegex } from "../utils/common";
 
 /**
- * Creates an alternation between the specified patterns
+ * @description Creates an alternation between the specified patterns
  * @param components Patterns to create alternatives between
  * @returns RegexOperator for alternation
  */
