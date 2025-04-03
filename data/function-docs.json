@@ -5,11 +5,6 @@
     "params": [
       {
         "name": "components",
-        "description": "",
-        "type": "RegexComposer[]"
-      },
-      {
-        "name": "components",
         "description": "The components to compose the regex from",
         "type": "RegexComposer[]"
       }
@@ -49,12 +44,8 @@
     "params": [
       {
         "name": "str",
-        "description": "",
+        "description": "String to escape",
         "type": "string"
-      },
-      {
-        "name": "str",
-        "description": "String to escape"
       }
     ],
     "return": {
@@ -67,12 +58,8 @@
     "params": [
       {
         "name": "str",
-        "description": "",
+        "description": "String to match literally",
         "type": "string"
-      },
-      {
-        "name": "str",
-        "description": "String to match literally"
       }
     ],
     "return": {
@@ -99,12 +86,8 @@
     "params": [
       {
         "name": "components",
-        "description": "",
+        "description": "Components to extract from",
         "type": "RegexComposer[]"
-      },
-      {
-        "name": "components",
-        "description": "Components to extract from"
       }
     ],
     "return": {
@@ -131,12 +114,8 @@
     "params": [
       {
         "name": "pattern",
-        "description": "",
+        "description": "- The pattern to match",
         "type": "string"
-      },
-      {
-        "name": "pattern",
-        "description": "- The pattern to match"
       }
     ],
     "return": {
@@ -149,12 +128,8 @@
     "params": [
       {
         "name": "pattern",
-        "description": "",
+        "description": "- The pattern to match",
         "type": "string"
-      },
-      {
-        "name": "pattern",
-        "description": "- The pattern to match"
       }
     ],
     "return": {
@@ -167,12 +142,8 @@
     "params": [
       {
         "name": "pattern",
-        "description": "",
+        "description": "- The pattern to match",
         "type": "string"
-      },
-      {
-        "name": "pattern",
-        "description": "- The pattern to match"
       }
     ],
     "return": {
@@ -185,12 +156,8 @@
     "params": [
       {
         "name": "pattern",
-        "description": "",
+        "description": "- The pattern to match",
         "type": "string"
-      },
-      {
-        "name": "pattern",
-        "description": "- The pattern to match"
       }
     ],
     "return": {
@@ -203,12 +170,8 @@
     "params": [
       {
         "name": "pattern",
-        "description": "",
+        "description": "- The pattern to match",
         "type": "string"
-      },
-      {
-        "name": "pattern",
-        "description": "- The pattern to match"
       }
     ],
     "return": {
@@ -221,12 +184,8 @@
     "params": [
       {
         "name": "pattern",
-        "description": "",
+        "description": "- The pattern to match",
         "type": "string"
-      },
-      {
-        "name": "pattern",
-        "description": "- The pattern to match"
       }
     ],
     "return": {
@@ -267,12 +226,8 @@
     "params": [
       {
         "name": "component",
-        "description": "",
+        "description": "The pattern to repeat",
         "type": "RegexComposer"
-      },
-      {
-        "name": "component",
-        "description": "The pattern to repeat"
       }
     ],
     "return": {
@@ -285,12 +240,8 @@
     "params": [
       {
         "name": "component",
-        "description": "",
+        "description": "The pattern to repeat",
         "type": "RegexComposer"
-      },
-      {
-        "name": "component",
-        "description": "The pattern to repeat"
       }
     ],
     "return": {
@@ -303,12 +254,8 @@
     "params": [
       {
         "name": "component",
-        "description": "",
+        "description": "The pattern to make optional",
         "type": "RegexComposer"
-      },
-      {
-        "name": "component",
-        "description": "The pattern to make optional"
       }
     ],
     "return": {
@@ -321,21 +268,13 @@
     "params": [
       {
         "name": "component",
-        "description": "",
+        "description": "The pattern to repeat",
         "type": "RegexComposer"
       },
       {
         "name": "options",
-        "description": "",
+        "description": "Quantification options: min (required) and max (optional)",
         "type": "QuantificationOptions"
-      },
-      {
-        "name": "component",
-        "description": "The pattern to repeat"
-      },
-      {
-        "name": "options",
-        "description": "Quantification options: min (required) and max (optional)"
       }
     ],
     "return": {
@@ -348,21 +287,13 @@
     "params": [
       {
         "name": "component",
-        "description": "",
+        "description": "The pattern to repeat",
         "type": "RegexComposer"
       },
       {
         "name": "count",
-        "description": "",
+        "description": "Exact number of repetitions",
         "type": "number"
-      },
-      {
-        "name": "component",
-        "description": "The pattern to repeat"
-      },
-      {
-        "name": "count",
-        "description": "Exact number of repetitions"
       }
     ],
     "return": {
@@ -375,21 +306,13 @@
     "params": [
       {
         "name": "component",
-        "description": "",
+        "description": "The pattern to repeat",
         "type": "RegexComposer"
       },
       {
         "name": "count",
-        "description": "",
+        "description": "Minimum number of repetitions",
         "type": "number"
-      },
-      {
-        "name": "component",
-        "description": "The pattern to repeat"
-      },
-      {
-        "name": "count",
-        "description": "Minimum number of repetitions"
       }
     ],
     "return": {
@@ -402,30 +325,18 @@
     "params": [
       {
         "name": "component",
-        "description": "",
+        "description": "The pattern to repeat",
         "type": "RegexComposer"
       },
       {
         "name": "min",
-        "description": "",
+        "description": "Minimum number of repetitions",
         "type": "number"
       },
       {
         "name": "max",
-        "description": "",
+        "description": "Maximum number of repetitions",
         "type": "number"
-      },
-      {
-        "name": "component",
-        "description": "The pattern to repeat"
-      },
-      {
-        "name": "min",
-        "description": "Minimum number of repetitions"
-      },
-      {
-        "name": "max",
-        "description": "Maximum number of repetitions"
       }
     ],
     "return": {

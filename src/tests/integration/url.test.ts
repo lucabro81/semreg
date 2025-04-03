@@ -14,20 +14,20 @@ const urlRegex = regex(
   optional(nonCapturingGroup(literal('www.'))),
   oneOrMore(
     anyOf(
-      letters(),
-      digits(),
+      letters,
+      digits,
       literal('.-')
     )
   ),
   literal('.'),
-  repeatBetween(letters(), 2, 6),
+  repeatBetween(letters, 2, 6),
   optional(
     nonCapturingGroup(
       literal('/'),
       zeroOrMore(
         anyOf(
-          letters(),
-          digits(),
+          letters,
+          digits,
           literal('/._-')
         )
       )

@@ -37,7 +37,7 @@ import {
 // Create a simple regex for validating usernames (letters, digits, and underscores)
 const usernameRegex = regex(
   startOfLine,
-  oneOrMore(anyOf(letters(), digits(), literal("_"))),
+  oneOrMore(anyOf(letters, digits, literal("_"))),
   endOfLine
 );
 
@@ -63,9 +63,10 @@ usernameRegex.test("invalid-username"); // false
 
 ### Character Generators
 
-- `letters()`: Matches any alphabetic character (`[a-zA-Z]`)
-- `lowerLetters()`: Matches lowercase letters (`[a-z]`)
-- `digits()`: Matches any digit (`[0-9]`)
+- `letters`: Matches any alphabetic character (`[a-zA-Z]`)
+- `lowerLetters`: Matches lowercase letters (`[a-z]`)
+- `upperLetters`: Matches uppercase letters (`[A-Z]`)
+- `digits`: Matches any digit (`[0-9]`)
 - `literal(str)`: Matches the literal string provided, with special characters escaped
 
 ### Quantifiers
@@ -111,11 +112,11 @@ import {
 
 const emailRegex = regex(
   startOfLine,
-  oneOrMore(anyOf(letters(), digits(), literal("._%+-"))),
+  oneOrMore(anyOf(letters, digits, literal("._%+-"))),
   literal("@"),
-  oneOrMore(anyOf(letters(), digits(), literal(".-"))),
+  oneOrMore(anyOf(letters, digits, literal(".-"))),
   literal("."),
-  repeatAtLeast(letters(), 2),
+  repeatAtLeast(letters, 2),
   endOfLine
 );
 
@@ -154,13 +155,13 @@ const urlRegex = regex(
   or(literal("http"), literal("https")),
   literal("://"),
   optional(nonCapturingGroup(literal("www."))),
-  oneOrMore(anyOf(letters(), digits(), literal(".-"))),
+  oneOrMore(anyOf(letters, digits, literal(".-"))),
   literal("."),
-  repeatBetween(letters(), 2, 6),
+  repeatBetween(letters, 2, 6),
   optional(
     nonCapturingGroup(
       literal("/"),
-      zeroOrMore(anyOf(letters(), digits(), literal("/._-")))
+      zeroOrMore(anyOf(letters, digits, literal("/._-")))
     )
   ),
   endOfLine
@@ -185,7 +186,7 @@ You can create your own reusable patterns:
 import { regex, oneOrMore, letters, digits, literal, anyOf } from "semreg";
 
 // Create a reusable pattern for alphanumeric strings
-const alphanumeric = () => oneOrMore(anyOf(letters(), digits()));
+const alphanumeric = () => oneOrMore(anyOf(letters, digits));
 
 // Use it in different contexts
 const usernameRegex = regex(startOfLine, alphanumeric(), endOfLine);

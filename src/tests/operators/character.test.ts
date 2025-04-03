@@ -1,18 +1,32 @@
 import { describe, it, expect } from 'vitest';
-import { digits, literal, letters } from '../../operators/character';
+import { digits, literal, letters, lowerLetters, upperLetters } from '../../operators/character';
 
 describe('Character Generators', () => {
   describe('letters', () => {
     it('should generate pattern for alphabetic characters', () => {
-      expect(letters()('')).toBe('[a-zA-Z]');
-      expect(letters()('abc')).toBe('abc[a-zA-Z]');
+      expect(letters('')).toBe('[a-zA-Z]');
+      expect(letters('abc')).toBe('abc[a-zA-Z]');
+    });
+  });
+
+  describe('lowerLetters', () => {
+    it('should generate pattern for lowercase letters', () => {
+      expect(lowerLetters('')).toBe('[a-z]');
+      expect(lowerLetters('abc')).toBe('abc[a-z]');
+    });
+  });
+
+  describe('upperLetters', () => {
+    it('should generate pattern for uppercase letters', () => {
+      expect(upperLetters('')).toBe('[A-Z]');
+      expect(upperLetters('abc')).toBe('abc[A-Z]');
     });
   });
 
   describe('digits', () => {
     it('should generate pattern for numeric characters', () => {
-      expect(digits()('')).toBe('[0-9]');
-      expect(digits()('abc')).toBe('abc[0-9]');
+      expect(digits('')).toBe('[0-9]');
+      expect(digits('abc')).toBe('abc[0-9]');
     });
   });
 

@@ -2,7 +2,7 @@ import { describe, it, expect } from "vitest";
 import { regex } from "../../core";
 import { letters, digits, literal } from "../../operators/character";
 import { anyOf } from "../../operators/compositor";
-import { startOfLine, endOfLine } from "../../operators/position";
+import { startOfLine, endOfLine, wordBoundary } from "../../operators/position";
 import { oneOrMore, repeatAtLeast } from "../../operators/quantifier";
 
 describe('Email Regex Integration Test', () => {
@@ -12,21 +12,21 @@ describe('Email Regex Integration Test', () => {
       startOfLine,
       oneOrMore(
         anyOf(
-          letters(),
-          digits(),
-          literal('._%+-')
+          letters,
+          digits,
+          literal('._%+-'),
         )
       ),
       literal('@'),
       oneOrMore(
         anyOf(
-          letters(),
-          digits(),
+          letters,
+          digits,
           literal('.-')
         )
       ),
       literal('.'),
-      repeatAtLeast(letters(), 2),
+      repeatAtLeast(letters, 2),
       endOfLine
     );
 
@@ -49,21 +49,21 @@ describe('Email Regex Integration Test', () => {
       startOfLine,
       oneOrMore(
         anyOf(
-          letters(),
-          digits(),
+          letters,
+          digits,
           literal('._%+-')
         )
       ),
       literal('@'),
       oneOrMore(
         anyOf(
-          letters(),
-          digits(),
+          letters,
+          digits,
           literal('.-')
         )
       ),
       literal('.'),
-      repeatAtLeast(letters(), 2),
+      repeatAtLeast(letters, 2),
       endOfLine
     );
 

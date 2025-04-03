@@ -4,20 +4,28 @@ import { RegexOperator } from "../types";
  * @description Matches any alphabetic character (a-z, A-Z)
  * @returns RegexOperator for alphabetic characters
  */
-export const letters = (): RegexOperator =>
+export const letters: RegexOperator =
   (pattern: string) => `${pattern}[a-zA-Z]`;
 
 /**
  * @description Matches any lowercase letter (a-z)
  * @returns RegexOperator for lowercase letters
  */
-export const lowerLetters = (): string => "[a-z]";
+export const lowerLetters: RegexOperator =
+  (pattern: string) => `${pattern}[a-z]`;
+
+/**
+ * @description Matches any uppercase letter (A-Z)
+ * @returns RegexOperator for uppercase letters
+ */
+export const upperLetters: RegexOperator =
+  (pattern: string) => `${pattern}[A-Z]`;
 
 /**
  * @description Matches any numeric digit (0-9)
  * @returns RegexOperator for numeric digits
  */
-export const digits = (): RegexOperator =>
+export const digits: RegexOperator =
   (pattern: string) => `${pattern}[0-9]`;
 
 /**

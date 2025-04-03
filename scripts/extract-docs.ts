@@ -85,11 +85,16 @@ async function main() {
 
       if (ts.isJSDocParameterTag(tag) && tag.name) {
         // Per i tag @param, possiamo accedere sia al nome che alla descrizione
-        const paramName = tag.name.getText();
         const paramDescription = tag.comment?.toString() || '';
-        const paramType = tag.typeExpression?.getText().replace(/[{}]/g, '') || undefined;
+        const paramName = tag.name.getText();
 
-        params.push({ name: paramName, description: paramDescription, type: paramType });
+        const index = params.findIndex(p => p.name == paramName);
+        if (index !== -1) {
+          params[index] = { ...params[index], description: paramDescription };
+        } else {
+          const paramType = tag.typeExpression?.getText().replace(/[{}]/g, '') || undefined;
+          params.push({ name: paramName, description: paramDescription, type: paramType });
+        }
       } else if (ts.isJSDocReturnTag(tag)) {
         // Per il tag @returns, accediamo al tipo e alla descrizione
         returnValue = {
