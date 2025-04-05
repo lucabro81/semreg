@@ -28,6 +28,7 @@
     "build": "tsc && vite build",
     "build:dev": "KEEP_SOURCE_MAP=true pnpm build",
     "build:worker": "vite build --config vite.config.worker.ts",
+    "prepare": "npm run build && npm run build:worker",
     "publish:dry-run": "pnpm build && pnpm publish --dry-run",
     "publish:prod": "pnpm build && pnpm publish",
     "bump-version:patch": "npm version patch",
