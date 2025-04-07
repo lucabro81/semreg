@@ -21,11 +21,36 @@ jobs:
     - name: Install dependencies
       run: npm install
 
-    - name: Tests
-    - run: nom run test
+    - name: Run Tests
+      run: npm run test
+
+    - name: Determine version bump
+      id: get_version_bump
+      run: |
+        if [[ $(git log -1 --pretty=%B) == *"[major]"* ]]; then
+          echo "VERSION_BUMP=major" >> $GITHUB_ENV
+        elif [[ $(git log -1 --pretty=%B) == *"[minor]"* ]]; then
+          echo "VERSION_BUMP=minor" >> $GITHUB_ENV
+        elif [[ $(git log -1 --pretty=%B) == *"[patch]"* ]]; then
+          echo "VERSION_BUMP=patch" >> $GITHUB_ENV
+        else
+          echo "No version bump keyword found in the commit message. Stopping the workflow."
+          exit 0
+        fi
+
+    - name: Bump version
+      run: npm version ${{ env.VERSION_BUMP }}
+
+    - name: Commit version bump
+      run: |
+        git config --global user.name 'github-actions[bot]'
+        git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+        git add package.json package-lock.json
+        git commit -m 'chore: bump version'
+        git push && git push origin tag ${{ env.VERSION_BUMP }}
 
     - name: Build project
-      run: npm run build # Adjust this command if your project doesn't use a build step
+      run: npm run build
 
     - name: Publish to npm
       run: npm publish
