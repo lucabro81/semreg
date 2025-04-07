@@ -2,6 +2,31 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
+## Table of Contents
+
+- [Installation](#installation)
+- [Key Features](#key-features)
+- [Basic Usage](#basic-usage)
+- [API Reference](#api-reference)
+  - [Core Function](#core-function)
+  - [Position Operators](#position-operators)
+  - [Character Generators](#character-generators)
+  - [Quantifiers](#quantifiers)
+  - [Groups](#groups)
+  - [Compositors](#compositors)
+  - [Logical Operators](#logical-operators)
+- [Examples](#examples)
+  - [Email Validation](#email-validation)
+  - [URL Validation](#url-validation)
+- [Custom Patterns](#custom-patterns)
+- [TODO](#todo)
+  - [Additional Character Classes](#1-additional-character-classes)
+  - [Advanced Groups](#2-advanced-groups)
+  - [Lookahead and Lookbehind](#3-lookahead-and-lookbehind)
+  - [Negation](#4-negation)
+  - [Flags and Options](#5-flags-and-options)
+- [License](#license)
+
 SemReg is a TypeScript library for building regular expressions in a readable, maintainable way. It uses a functional, pipe-based approach that allows developers to compose regex patterns with a clear and expressive syntax.
 
 ## Installation
@@ -198,6 +223,46 @@ const productCodeRegex = regex(
   endOfLine
 );
 ```
+
+## TODO
+
+Operators that could be implemented soon
+
+### 1. Additional Character Classes
+
+- `upperLetters()`: For uppercase characters (`[A-Z]`)
+- `whitespace()`: For whitespace characters (`\s`)
+- `nonWhitespace()`: For non-whitespace characters (`\S`)
+- `word()`: For word characters (`\w`)
+- `nonWord()`: For non-word characters (`\W`)
+- `any()`: For any character (`.`)
+- `range(from, to)`: For custom character ranges
+
+### 2. Advanced Groups
+
+- `namedGroup(name, ...)`: Named group (`(?<name>...)`)
+- `backreference(n)`: Backreference to previous group (`\n`)
+- `namedBackreference(name)`: Named backreference to previous group (`\k<name>`)
+
+### 3. Lookahead and Lookbehind
+
+- `positiveLookahead(...)`: Positive lookahead (`(?=...)`)
+- `negativeLookahead(...)`: Negative lookahead (`(?!...)`)
+- `positiveLookbehind(...)`: Positive lookbehind (`(?<=...)`)
+- `negativeLookbehind(...)`: Negative lookbehind (`(?<!...)`)
+
+### 4. Negation
+
+- `not(...)`: Negation of the specified characters (`[^...]`)
+
+### 5. Flags and Options
+
+- `caseInsensitive`: Enable case-insensitive matching (`i`)
+- `global`: Enable global matching (`g`)
+- `multiline`: Enable multiline matching (`m`)
+- `dotAll`: Enable matching for all characters (`s`)
+- `unicode`: Enable Unicode support (`u`)
+- `sticky`: Enable sticky matching (`y`)
 
 ## License
 
