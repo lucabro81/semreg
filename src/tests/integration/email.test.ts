@@ -2,8 +2,8 @@ import { describe, it, expect } from "vitest";
 import { regex } from "../../core";
 import { letters, digits, literal } from "../../operators/character";
 import { anyOf } from "../../operators/compositor";
-import { startOfLine, endOfLine, wordBoundary } from "../../operators/position";
-import { oneOrMore, repeatAtLeast } from "../../operators/quantifier";
+import { startOfLine, endOfLine } from "../../operators/position";
+import { atLeast, oneOrMore, repeat } from "../../operators/quantifier";
 
 describe('Email Regex Integration Test', () => {
   it('should build a working email validation regex', () => {
@@ -26,7 +26,7 @@ describe('Email Regex Integration Test', () => {
         )
       ),
       literal('.'),
-      repeatAtLeast(letters, 2),
+      repeat(letters, atLeast(2)),
       endOfLine
     );
 
@@ -63,7 +63,7 @@ describe('Email Regex Integration Test', () => {
         )
       ),
       literal('.'),
-      repeatAtLeast(letters, 2),
+      repeat(letters, atLeast(2)),
       endOfLine
     );
 

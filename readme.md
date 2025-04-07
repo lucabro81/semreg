@@ -105,10 +105,10 @@ usernameRegex.test("invalid-username"); // false
 - `oneOrMore(component)`: Matches one or more occurrences (`+`)
 - `zeroOrMore(component)`: Matches zero or more occurrences (`*`)
 - `optional(component)`: Matches zero or one occurrence (`?`)
-- `repeat(component, options)`: Generic quantification based on options
-- `repeatExactly(component, count)`: Matches exactly n occurrences (`{n}`)
-- `repeatAtLeast(component, count)`: Matches at least n occurrences (`{n,}`)
-- `repeatBetween(component, min, max)`: Matches between min and max occurrences (`{min,max}`)
+- `repeat(component, options)`: Generic quantification. Use with `exactly(n)`, `atLeast(n)`, or `between(min, max)` to specify repetitions.
+- `exactly(n)`: Helper for `repeat`. Specifies exactly n occurrences (`{n}`).
+- `atLeast(n)`: Helper for `repeat`. Specifies at least n occurrences (`{n,}`).
+- `between(min, max)`: Helper for `repeat`. Specifies between min and max occurrences (`{min,max}`).
 
 ### Groups
 
@@ -138,7 +138,10 @@ import {
   literal,
   anyOf,
   oneOrMore,
-  repeatAtLeast,
+  repeat,
+  exactly,
+  atLeast,
+  between,
 } from "semreg";
 
 const emailRegex = regex(
@@ -147,7 +150,7 @@ const emailRegex = regex(
   literal("@"),
   oneOrMore(anyOf(letters, digits, literal(".-"))),
   literal("."),
-  repeatAtLeast(letters, 2),
+  repeat(letters, atLeast(2)),
   endOfLine
 );
 
@@ -176,7 +179,10 @@ import {
   oneOrMore,
   optional,
   zeroOrMore,
-  repeatBetween,
+  repeat,
+  exactly,
+  atLeast,
+  between,
   nonCapturingGroup,
   or,
 } from "semreg";
@@ -188,7 +194,7 @@ const urlRegex = regex(
   optional(nonCapturingGroup(literal("www."))),
   oneOrMore(anyOf(letters, digits, literal(".-"))),
   literal("."),
-  repeatBetween(letters, 2, 6),
+  repeat(letters, between(2, 6)),
   optional(
     nonCapturingGroup(
       literal("/"),

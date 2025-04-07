@@ -3,7 +3,7 @@ import { regex } from "../../core";
 import { letters, digits, literal } from "../../operators/character";
 import { anyOf } from "../../operators/compositor";
 import { startOfLine, endOfLine } from "../../operators/position";
-import { oneOrMore, optional, zeroOrMore, repeatBetween } from "../../operators/quantifier";
+import { oneOrMore, optional, zeroOrMore, repeat, between } from "../../operators/quantifier";
 import { nonCapturingGroup } from "../../operators/group";
 import { or } from "../../operators/logic";
 
@@ -20,7 +20,7 @@ const urlRegex = regex(
     )
   ),
   literal('.'),
-  repeatBetween(letters, 2, 6),
+  repeat(letters, between(2, 6)),
   optional(
     nonCapturingGroup(
       literal('/'),

@@ -1,6 +1,7 @@
 import { regex } from "../core";
 import { RegexComposer, RegexOperator } from "../types"
 import { componentsToRegex, withChecks } from "../utils/common";
+
 const isACharacterClass = (pattern: string) =>
   pattern.startsWith('[') && pattern.endsWith(']');
 
