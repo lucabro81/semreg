@@ -93,6 +93,12 @@ usernameRegex.test("invalid-username"); // false
 - `upperLetters`: Matches uppercase letters (`[A-Z]`)
 - `digits`: Matches any digit (`[0-9]`)
 - `literal(str)`: Matches the literal string provided, with special characters escaped
+- `whitespace()`: Matches any whitespace character (`\s`)
+- `nonWhitespace()`: Matches any non-whitespace character (`\S`)
+- `word()`: Matches any word character (alphanumeric + underscore) (`\w`)
+- `nonWord()`: Matches any non-word character (`\W`)
+- `any()`: Matches any character except newline (`.`)
+- `range(from, to)`: Matches any character within the specified range (`[from-to]`)
 
 ### Quantifiers
 
@@ -230,13 +236,7 @@ Operators that could be implemented soon
 
 ### 1. Additional Character Classes
 
-- `upperLetters()`: For uppercase characters (`[A-Z]`)
-- `whitespace()`: For whitespace characters (`\s`)
-- `nonWhitespace()`: For non-whitespace characters (`\S`)
-- `word()`: For word characters (`\w`)
-- `nonWord()`: For non-word characters (`\W`)
-- `any()`: For any character (`.`)
-- `range(from, to)`: For custom character ranges
+// No operators left here
 
 ### 2. Advanced Groups
 
