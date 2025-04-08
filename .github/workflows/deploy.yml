@@ -1,4 +1,4 @@
-name: Deploy to npm
+name: Deploy to npm using pnpm
 
 on:
   push:
@@ -13,22 +13,52 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      # 1. Setup Node.js - Questo configurerà anche .npmrc per l'autenticazione
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "20"
+          node-version: "20" # O la versione Node.js che preferisci
           registry-url: "https://registry.npmjs.org/"
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }} # Il token per npmjs
 
+      # 2. Install pnpm (usa l'azione ufficiale)
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 8 # Puoi specificare una versione di pnpm o rimuovere per l'ultima
+          # run_install: false # Opzionale: se non vuoi che esegua 'pnpm install' automaticamente
+
+      # 3. Configura la cache per pnpm (Opzionale ma fortemente raccomandato per velocità)
+      - name: Get pnpm store directory
+        id: pnpm-cache # Diamo un ID a questo step per riferirci al suo output
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+      - name: Setup pnpm cache
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }} # Chiave basata su OS e lockfile
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      # 4. Install dependencies con pnpm
       - name: Install dependencies
-        run: npm ci --ignore-scripts
+        # L'equivalente pnpm di 'npm ci', usa il lockfile
+        run: pnpm install --frozen-lockfile
 
+      # 5. Esegui i test con pnpm
       - name: Run Tests
-        run: npm run test
+        run: pnpm run test
 
+      # 6. Builda il progetto con pnpm
       - name: Build project
-        run: npm run build
+        run: pnpm run build
 
-      - name: Publish to npm
-        run: npm publish
+      # 7. Pubblica usando pnpm
+      - name: Publish package
+        # pnpm publish userà il .npmrc configurato da setup-node
+        # Aggiungi --no-git-checks se necessario (es. se il build modifica file non committati)
+        run: pnpm publish --no-git-checks
