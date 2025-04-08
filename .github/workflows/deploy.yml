@@ -26,7 +26,7 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v4
         with:
-          version: 8 # Puoi specificare una versione di pnpm o rimuovere per l'ultima
+          version: 9 # Puoi specificare una versione di pnpm o rimuovere per l'ultima
           # run_install: false # Opzionale: se non vuoi che esegua 'pnpm install' automaticamente
 
       # 3. Configura la cache per pnpm (Opzionale ma fortemente raccomandato per velocità)
