@@ -20,7 +20,7 @@ describe('Compositor Operators', () => {
     });
 
     it('should handle empty inputs', () => {
-      expect(anyOf()('')).toBe('');
+      expect(() => anyOf()).toThrow('At least one component is required');
     });
 
     it('should handle complex combinations', () => {
@@ -52,7 +52,7 @@ describe('Sequence Operator', () => {
     });
 
     it('should handle empty input', () => {
-      expect(sequence()('')).toBe('');
+      expect(() => sequence()).toThrow('At least one component is required');
     });
   });
 });

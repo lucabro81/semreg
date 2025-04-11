@@ -26,7 +26,7 @@ describe('Or Operator', () => {
     });
 
     it('should handle empty input', () => {
-      expect(or()('')).toBe('');
+      expect(() => or()).toThrow('At least one component is required');
     });
   });
 });

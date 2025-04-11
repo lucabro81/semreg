@@ -8,10 +8,10 @@ import { RegexComposer, RegexOperator } from "../types";
  */
 export const withEmptyCheck = (operatorFn: (...components: RegexComposer[]) => RegexOperator) => {
   return (...components: RegexComposer[]): RegexOperator => {
+    if (components.length === 0) {
+      throw new Error('At least one component is required');
+    }
     return (pattern: string) => {
-      if (components.length === 0) {
-        return pattern;
-      }
       return operatorFn(...components)(pattern);
     };
   };

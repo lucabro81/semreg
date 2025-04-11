@@ -114,6 +114,9 @@ usernameRegex.test("invalid-username"); // false
 
 - `group(...components)`: Creates a capturing group (`(...)`)
 - `nonCapturingGroup(...components)`: Creates a non-capturing group (`(?:...)`)
+- `namedGroup(name, ...components)`: Creates a named capturing group (`(?<name>...)`)
+- `backreference(n)`: Backreference to the nth capturing group (`\n`).
+- `namedBackreference(name)`: Backreference to a named capturing group (`\k<name>`).
 
 ### Compositors
 
@@ -239,16 +242,6 @@ const productCodeRegex = regex(
 ## TODO
 
 Operators that could be implemented soon
-
-### 1. Additional Character Classes
-
-// No operators left here
-
-### 2. Advanced Groups
-
-- `namedGroup(name, ...)`: Named group (`(?<name>...)`)
-- `backreference(n)`: Backreference to previous group (`\n`)
-- `namedBackreference(name)`: Named backreference to previous group (`\k<name>`)
 
 ### 3. Lookahead and Lookbehind
 

@@ -26,10 +26,6 @@ const extractCharacterClassContent = (components: RegexComposer[]) => {
   return parts;
 }
 
-const areThereComplexCharacterClasses = (parts: string[]) => {
-  return parts.some(part => part.length > 1 || part.includes('-'))
-}
-
 /**
  * @description Creates a pattern that matches any of the given components
  * @param components Components to match
@@ -40,11 +36,7 @@ export const anyOf = withChecks((...components: RegexComposer[]): RegexOperator 
 
     const parts: string[] = extractCharacterClassContent(components);
 
-    if (areThereComplexCharacterClasses(parts)) {
-      return `${pattern}[${parts.join('')}]`;
-    } else {
-      return `${pattern}[${parts.join('')}]`;
-    }
+    return `${pattern}[${parts.join('')}]`;
   }
 });
 
