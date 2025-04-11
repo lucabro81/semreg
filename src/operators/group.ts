@@ -47,12 +47,12 @@ export const namedGroup = (name: string, ...components: RegexComposer[]): RegexO
 };
 
 /**
- * @description Creates a backreference to a previously defined capturing group by its number.
+ * @description Creates a numbered backreference to a previously defined capturing group by its index.
  * @param index The 1-based index of the capturing group.
  * @returns RegexOperator for a numbered backreference.
  * @throws Error if the index is not a positive integer.
  */
-export const backreference = (index: number): RegexOperator => {
+export const numberedBackreference = (index: number): RegexOperator => {
   if (!Number.isInteger(index) || index <= 0) {
     throw new Error(`Invalid backreference index: ${index}. Index must be a positive integer.`);
   }
@@ -60,7 +60,7 @@ export const backreference = (index: number): RegexOperator => {
 };
 
 /**
- * @description Creates a backreference to a previously defined named capturing group.
+ * @description Creates a named backreference to a previously defined named capturing group.
  * @param name The name of the capturing group.
  * @returns RegexOperator for a named backreference.
  * @throws Error if the name is invalid.

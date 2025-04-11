@@ -3,7 +3,7 @@ import { regex } from '../../core';
 import {
   group,
   namedGroup,
-  backreference,
+  numberedBackreference,
   namedBackreference,
 } from '../../operators/group';
 import {
@@ -67,7 +67,7 @@ describe('Integration Test: Advanced Groups', () => {
       startOfLine,
       wordGroup,
       whitespace,
-      backreference(1), // Match the content of Group 1
+      numberedBackreference(1), // Match the content of Group 1
       endOfLine
     );
 

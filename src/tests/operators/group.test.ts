@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { group, nonCapturingGroup, namedGroup, backreference, namedBackreference } from '../../operators/group';
+import { group, nonCapturingGroup, namedGroup, numberedBackreference, namedBackreference } from '../../operators/group';
 import { letters, digits, literal, word } from '../../operators/character';
 import { oneOrMore } from '../../operators/quantifier';
 import { regex } from '../../core';
@@ -78,16 +78,16 @@ describe('Group Operators', () => {
     });
   });
 
-  describe('backreference', () => {
+  describe('numberedBackreference', () => {
     it('should create a numbered backreference', () => {
-      expect(backreference(1)('')).toBe('\\1');
-      expect(backreference(5)('abc')).toBe('abc\\5');
+      expect(numberedBackreference(1)('')).toBe('\\1');
+      expect(numberedBackreference(5)('abc')).toBe('abc\\5');
     });
 
     it('should throw error for invalid index', () => {
-      expect(() => backreference(0)('')).toThrow(/Invalid backreference index/);
-      expect(() => backreference(-1)('')).toThrow(/Invalid backreference index/);
-      expect(() => backreference(1.5)('')).toThrow(/Invalid backreference index/);
+      expect(() => numberedBackreference(0)('')).toThrow(/Invalid backreference index/);
+      expect(() => numberedBackreference(-1)('')).toThrow(/Invalid backreference index/);
+      expect(() => numberedBackreference(1.5)('')).toThrow(/Invalid backreference index/);
     });
 
     it('should work with capturing groups for matching repeated words', () => {
@@ -95,7 +95,7 @@ describe('Group Operators', () => {
         startOfLine,
         group(oneOrMore(word)),
         literal(' '),
-        backreference(1),
+        numberedBackreference(1),
         endOfLine
       );
       expect(findRepeatedWord.test('hello hello')).toBe(true);
