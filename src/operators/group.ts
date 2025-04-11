@@ -1,74 +1,99 @@
-import { regex } from "../core";
+import { regex } from '../core'; // Import regex core function
 import { RegexComposer, RegexOperator } from "../types";
 import { withEmptyCheck } from "../utils/common";
+import { digits, letters, literal } from './character'; // Import character operators
+import { anyOf } from './compositor'; // Import compositor operators
+import { endOfLine, startOfLine } from './position'; // Import position operators
+import { zeroOrMore } from './quantifier'; // Import quantifier operators
+
+// Define the validator using semreg components
+const validGroupNameRegex = regex(
+  startOfLine,
+  anyOf(letters, literal('_')), // Starts with letter or underscore
+  zeroOrMore(anyOf(letters, digits, literal('_'))), // Followed by letters, digits, or underscores
+  endOfLine
+);
+
 
 /**
- * @description Creates a capturing group containing the specified components
- * @param components Components to include in the group
- * @returns RegexOperator for a capturing group
+ * @description Creates a capturing group for one or more components.
+ * @param components The patterns to include in the group
+ * @returns RegexOperator for the capturing group
  */
-export const group = withEmptyCheck((...components: RegexComposer[]): RegexOperator => {
-  return (pattern: string) => {
-    const groupContent = regex(...components).source;
-    return `${pattern}(${groupContent})`;
-  };
-});
+export const group: (...components: RegexComposer[]) => RegexOperator =
+  withEmptyCheck((...components: RegexComposer[]) => {
+    return (pattern: string) => {
+      const innerPattern = regex(...components).source;
+      return `${pattern}(${innerPattern})`;
+    };
+  });
 
 /**
- * @description Creates a non-capturing group containing the specified components
- * @param components Components to include in the group
- * @returns RegexOperator for a non-capturing group
+ * @description Creates a non-capturing group for one or more components.
+ * @param components The patterns to include in the group
+ * @returns RegexOperator for the non-capturing group
  */
-export const nonCapturingGroup = withEmptyCheck((...components: RegexComposer[]): RegexOperator => {
-  return (pattern: string) => {
-    const groupContent = regex(...components).source;
-    return `${pattern}(?:${groupContent})`;
-  };
-});
+export const nonCapturingGroup: (...components: RegexComposer[]) => RegexOperator =
+  withEmptyCheck((...components: RegexComposer[]) => {
+    return (pattern: string) => {
+      const innerPattern = regex(...components).source;
+      return `${pattern}(?:${innerPattern})`;
+    };
+  });
 
 /**
  * @description Creates a named capturing group.
- * @param name The name for the group (must be valid identifier).
- * @param components Components to include in the group.
- * @returns RegexOperator for a named capturing group.
- * @throws Error if the name is invalid.
+ * @param name The name for the group (must be valid JS identifier: start with letter or _, followed by letters, digits, or _)
+ * @param components The patterns to include in the group
+ * @returns RegexOperator for the named capturing group
  */
-export const namedGroup = (name: string, ...components: RegexComposer[]): RegexOperator => {
-  // Basic validation for group name (alphanumeric + underscore, not starting with digit)
-  if (!/^[a-zA-Z_][a-zA-Z0-9_]*$/.test(name)) {
-    throw new Error(`Invalid group name: "${name}". Name must be alphanumeric and cannot start with a digit.`);
+export const namedGroup = (
+  name: string,
+  ...components: RegexComposer[]
+): RegexOperator => {
+  // Validate group name using the semreg-defined regex
+  if (!validGroupNameRegex.test(name)) {
+    throw new Error(
+      `Invalid group name: "${name}". Must start with a letter or underscore, followed by letters, digits, or underscores.`
+    );
   }
-  const groupContent = regex(...components).source;
-  // Prevent applying to empty pattern or empty group content
-  if (components.length === 0 || groupContent === '') {
-    return (pattern: string) => pattern; // Or throw? Let's return pattern for consistency
+  if (components.length === 0) {
+    throw new Error('Named group cannot be empty.');
   }
-  return (pattern: string) => `${pattern}(?<${name}>${groupContent})`;
+
+  return (pattern: string) => {
+    const innerPattern = regex(...components).source;
+    return `${pattern}(?<${name}>${innerPattern})`;
+  };
 };
 
 /**
- * @description Creates a numbered backreference to a previously defined capturing group by its index.
- * @param index The 1-based index of the capturing group.
- * @returns RegexOperator for a numbered backreference.
- * @throws Error if the index is not a positive integer.
+ * @description Creates a numbered backreference (e.g., \1, \2).
+ * @param index The index of the capturing group to reference (1-based)
+ * @returns RegexOperator for the numbered backreference
  */
 export const numberedBackreference = (index: number): RegexOperator => {
-  if (!Number.isInteger(index) || index <= 0) {
-    throw new Error(`Invalid backreference index: ${index}. Index must be a positive integer.`);
+  if (index <= 0 || !Number.isInteger(index)) {
+    throw new Error('Backreference index must be a positive integer.');
   }
-  return (pattern: string) => `${pattern}\\${index}`;
+  return (pattern: string) => {
+    return `${pattern}\\${index}`;
+  };
 };
 
 /**
- * @description Creates a named backreference to a previously defined named capturing group.
- * @param name The name of the capturing group.
- * @returns RegexOperator for a named backreference.
- * @throws Error if the name is invalid.
+ * @description Creates a named backreference (e.g., \k<name>).
+ * @param name The name of the capturing group to reference
+ * @returns RegexOperator for the named backreference
  */
 export const namedBackreference = (name: string): RegexOperator => {
-  // Basic validation for group name
-  if (!/^[a-zA-Z_][a-zA-Z0-9_]*$/.test(name)) {
-    throw new Error(`Invalid group name for backreference: "${name}".`);
+  // Validate group name using the semreg-defined regex
+  if (!validGroupNameRegex.test(name)) {
+    throw new Error(
+      `Invalid group name for backreference: "${name}". Must start with a letter or underscore, followed by letters, digits, or underscores.`
+    );
   }
-  return (pattern: string) => `${pattern}\\k<${name}>`;
+  return (pattern: string) => {
+    return `${pattern}\\k<${name}>`;
+  };
 };

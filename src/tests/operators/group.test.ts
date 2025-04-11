@@ -73,8 +73,8 @@ describe('Group Operators', () => {
       expect(() => namedGroup('', letters)('')).toThrow(/Invalid group name/);
     });
 
-    it('should handle empty components gracefully (no group created)', () => {
-      expect(namedGroup('emptyGroup')('abc')).toBe('abc');
+    it('should throw error for empty components', () => {
+      expect(() => namedGroup('myGroup')).toThrow('Named group cannot be empty.');
     });
   });
 
@@ -85,9 +85,9 @@ describe('Group Operators', () => {
     });
 
     it('should throw error for invalid index', () => {
-      expect(() => numberedBackreference(0)('')).toThrow(/Invalid backreference index/);
-      expect(() => numberedBackreference(-1)('')).toThrow(/Invalid backreference index/);
-      expect(() => numberedBackreference(1.5)('')).toThrow(/Invalid backreference index/);
+      expect(() => numberedBackreference(0)('')).toThrow('Backreference index must be a positive integer.');
+      expect(() => numberedBackreference(-1)('')).toThrow('Backreference index must be a positive integer.');
+      expect(() => numberedBackreference(1.5)('')).toThrow('Backreference index must be a positive integer.');
     });
 
     it('should work with capturing groups for matching repeated words', () => {
