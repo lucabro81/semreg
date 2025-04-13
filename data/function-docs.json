@@ -230,6 +230,62 @@
     }
   },
   {
+    "name": "anyOf",
+    "description": "Creates a pattern that matches any of the given components",
+    "params": [
+      {
+        "name": "components",
+        "description": "Components to match",
+        "type": "RegexComposer[]"
+      }
+    ],
+    "return": {
+      "description": "RegexOperator for matching any of the components"
+    }
+  },
+  {
+    "name": "sequence",
+    "description": "Creates a pattern that matches a sequence of components in order",
+    "params": [
+      {
+        "name": "components",
+        "description": "Components to match in sequence",
+        "type": "RegexComposer[]"
+      }
+    ],
+    "return": {
+      "description": "RegexOperator for matching the sequence"
+    }
+  },
+  {
+    "name": "group",
+    "description": "Creates a capturing group for one or more components.",
+    "params": [
+      {
+        "name": "components",
+        "description": "The patterns to include in the group",
+        "type": "RegexComposer[]"
+      }
+    ],
+    "return": {
+      "description": "RegexOperator for the capturing group"
+    }
+  },
+  {
+    "name": "nonCapturingGroup",
+    "description": "Creates a non-capturing group for one or more components.",
+    "params": [
+      {
+        "name": "components",
+        "description": "The patterns to include in the group",
+        "type": "RegexComposer[]"
+      }
+    ],
+    "return": {
+      "description": "RegexOperator for the non-capturing group"
+    }
+  },
+  {
     "name": "namedGroup",
     "description": "Creates a named capturing group.",
     "params": [
@@ -274,6 +330,20 @@
     ],
     "return": {
       "description": "RegexOperator for the named backreference"
+    }
+  },
+  {
+    "name": "or",
+    "description": "Creates an alternation between the specified patterns",
+    "params": [
+      {
+        "name": "components",
+        "description": "Patterns to create alternatives between",
+        "type": "RegexComposer[]"
+      }
+    ],
+    "return": {
+      "description": "RegexOperator for alternation"
     }
   },
   {
