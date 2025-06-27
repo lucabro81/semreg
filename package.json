@@ -2,7 +2,7 @@
   "name": "semreg",
   "author": "Luca Brognara",
   "private": false,
-  "version": "1.2.1",
+  "version": "1.3.0",
   "description": "A TypeScript library for building regular expressions in a readable, maintainable way using a functional, pipe-based approach",
   "keywords": [
     "regex",
