@@ -21,10 +21,8 @@
 - [Custom Patterns](#custom-patterns)
 - [TODO](#todo)
   - [Additional Character Classes](#1-additional-character-classes)
-  - [Advanced Groups](#2-advanced-groups)
-  - [Lookahead and Lookbehind](#3-lookahead-and-lookbehind)
-  - [Negation](#4-negation)
-  - [Flags and Options](#5-flags-and-options)
+  - [Lookahead and Lookbehind](#2-lookahead-and-lookbehind)
+  - [Flags and Options](#3-flags-and-options)
 - [License](#license)
 
 SemReg is a TypeScript library for building regular expressions in a readable, maintainable way. It uses a functional, pipe-based approach that allows developers to compose regex patterns with a clear and expressive syntax.
@@ -126,6 +124,7 @@ usernameRegex.test("invalid-username"); // false
 ### Logical Operators
 
 - `or(...components)`: Creates an alternation between patterns (`|`)
+- `not(component)`: Creates a negated character set for the given component (`[^...]`)
 
 ## Examples
 
@@ -243,33 +242,18 @@ const productCodeRegex = regex(
 
 Operators that could be implemented soon
 
-### 1. Additional Character Classes
-
-### 2. Advanced Groups
-
-- `namedGroup(name, ...)`: Named group (`(?<name>...)`)
-- `numberedBackreference(n)`: Backreference to previous group (`\n`)
-- `namedBackreference(name)`: Named backreference to previous group (`\k<name>`)
-
-### 3. Lookahead and Lookbehind
+### 1. Lookahead and Lookbehind
 
 - `positiveLookahead(...)`: Positive lookahead (`(?=...)`)
 - `negativeLookahead(...)`: Negative lookahead (`(?!...)`)
 - `positiveLookbehind(...)`: Positive lookbehind (`(?<=...)`)
 - `negativeLookbehind(...)`: Negative lookbehind (`(?<!...)`)
 
-### 4. Negation
-
-- `not(...)`: Negation of the specified characters (`[^...]`)
-
-### 5. Flags and Options
+### 2. Flags and Options
 
 - `caseInsensitive`: Enable case-insensitive matching (`i`)
 - `global`: Enable global matching (`g`)
 - `multiline`: Enable multiline matching (`m`)
-- `dotAll`: Enable matching for all characters (`s`)
-- `unicode`: Enable Unicode support (`u`)
-- `sticky`: Enable sticky matching (`y`)
 
 ## License
 

@@ -36,6 +36,10 @@
     "bump-version:major": "npm version major",
     "test": "vitest run",
     "test:watch": "vitest",
+    "_commit-and-push-tag": "TAG=$(git describe --tags --abbrev=0) && git push && git push origin tag $TAG",
+    "release:patch": "pnpm bump-version:patch && pnpm _commit-and-push-tag",
+    "release:minor": "pnpm bump-version:minor && pnpm _commit-and-push-tag",
+    "release:major": "pnpm bump-version:major && pnpm _commit-and-push-tag",
     "extract-docs": "NODE_OPTIONS=\"--loader ts-node/esm\" ts-node --project scripts/tsconfig.json scripts/extract-docs.ts"
   },
   "devDependencies": {

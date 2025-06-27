@@ -35,14 +35,14 @@ async function main() {
   }
 
   function visitNode(node: ts.Node) {
-    // Gestisce le funzioni dichiarate normalmente
+    // Manage normal function declarations
     if (ts.isFunctionDeclaration(node) && node.name) {
       const functionDoc = extractFunctionDoc(node, node.name.getText());
       if (functionDoc) {
         functions.push(functionDoc);
       }
     }
-    // Gestisce le arrow function assegnate a variabili/costanti DIRETTAMENTE
+    // Manage arrow functions assigned to variables/constants directly
     else if (ts.isVariableDeclaration(node) &&
       node.initializer &&
       ts.isArrowFunction(node.initializer) &&
@@ -53,7 +53,7 @@ async function main() {
         functions.push(functionDoc);
       }
     }
-    // Gestisce le variabili assegnate al RISULTATO di una HOF che accetta una arrow function
+    // Manage variables assigned to the result of a HOF that accepts an arrow function
     else if (ts.isVariableDeclaration(node) &&
       node.initializer &&
       ts.isCallExpression(node.initializer) &&

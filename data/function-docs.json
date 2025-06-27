@@ -347,6 +347,20 @@
     }
   },
   {
+    "name": "not",
+    "description": "Creates a negated character set for the given component",
+    "params": [
+      {
+        "name": "component",
+        "description": "The component to negate",
+        "type": "RegexComposer"
+      }
+    ],
+    "return": {
+      "description": "RegexOperator for negation"
+    }
+  },
+  {
     "name": "startOfLine",
     "description": "Matches the start of a line (^)",
     "params": [

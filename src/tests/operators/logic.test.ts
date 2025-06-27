@@ -1,7 +1,8 @@
 import { describe, it, expect } from 'vitest';
-import { or } from '../../operators/logic';
+import { or, not } from '../../operators/logic';
 import { letters, digits, literal } from '../../operators/character';
 import { group } from '../../operators/group';
+import { anyOf } from '../../operators/compositor';
 
 describe('Or Operator', () => {
   describe('or', () => {
@@ -27,6 +28,26 @@ describe('Or Operator', () => {
 
     it('should handle empty input', () => {
       expect(() => or()).toThrow('At least one component is required');
+    });
+  });
+});
+
+describe('Not Operator', () => {
+  describe('not', () => {
+    it('should create a negated character set', () => {
+      expect(not(letters)('')).toBe('[^a-zA-Z]');
+    });
+
+    it('should append to existing pattern', () => {
+      expect(not(digits)('abc')).toBe('abc[^0-9]');
+    });
+
+    it('should handle literal negation', () => {
+      expect(not(literal('a'))('')).toBe('[^a]');
+    });
+
+    it('should handle multiple characters in negation', () => {
+      expect(not(anyOf(letters, digits))('')).toBe('[^a-zA-Z0-9]');
     });
   });
 });
