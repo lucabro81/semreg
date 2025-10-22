@@ -15,14 +15,14 @@
   - [Groups](#groups)
   - [Compositors](#compositors)
   - [Logical Operators](#logical-operators)
+  - [Assertions](#assertions)
+  - [Flags and Options](#flags-and-options)
 - [Examples](#examples)
   - [Email Validation](#email-validation)
   - [URL Validation](#url-validation)
+  - [Password Validation with Lookahead](#password-validation-with-lookahead)
+  - [Price Extraction with Lookbehind](#price-extraction-with-lookbehind)
 - [Custom Patterns](#custom-patterns)
-- [TODO](#todo)
-  - [Additional Character Classes](#1-additional-character-classes)
-  - [Lookahead and Lookbehind](#2-lookahead-and-lookbehind)
-  - [Flags and Options](#3-flags-and-options)
 - [License](#license)
 
 SemReg is a TypeScript library for building regular expressions in a readable, maintainable way. It uses a functional, pipe-based approach that allows developers to compose regex patterns with a clear and expressive syntax.
@@ -126,6 +126,56 @@ usernameRegex.test("invalid-username"); // false
 - `or(...components)`: Creates an alternation between patterns (`|`)
 - `not(component)`: Creates a negated character set for the given component (`[^...]`)
 
+### Assertions
+
+- `positiveLookahead(...components)`: Positive lookahead - matches if the pattern ahead matches, without consuming characters (`(?=...)`)
+- `negativeLookahead(...components)`: Negative lookahead - matches if the pattern ahead does NOT match, without consuming characters (`(?!...)`)
+- `positiveLookbehind(...components)`: Positive lookbehind - matches if the pattern behind matches, without consuming characters (`(?<=...)`)
+- `negativeLookbehind(...components)`: Negative lookbehind - matches if the pattern behind does NOT match, without consuming characters (`(?<!...)`)
+
+### Flags and Options
+
+The `regex()` function accepts an optional flags object as the last parameter:
+
+```typescript
+regex(...components, { caseInsensitive?: boolean, global?: boolean, multiline?: boolean })
+```
+
+**Available Flags:**
+- `caseInsensitive`: Enable case-insensitive matching (`i` flag)
+- `global`: Enable global matching - find all matches rather than stopping after the first match (`g` flag)
+- `multiline`: Enable multiline mode - `^` and `$` match start/end of line, not just start/end of string (`m` flag)
+
+**Preset Flag Objects:**
+
+For convenience, you can use these preset flag objects:
+- `caseInsensitive`: Equivalent to `{ caseInsensitive: true }`
+- `global`: Equivalent to `{ global: true }`
+- `multiline`: Equivalent to `{ multiline: true }`
+
+**Examples:**
+
+```typescript
+// Case-insensitive matching
+const pattern1 = regex(literal('hello'), { caseInsensitive: true });
+pattern1.test('HELLO'); // true
+
+// Using preset
+const pattern2 = regex(literal('test'), caseInsensitive);
+
+// Multiple flags
+const pattern3 = regex(
+  literal('test'),
+  { caseInsensitive: true, global: true }
+);
+
+// Combining presets
+const pattern4 = regex(
+  literal('test'),
+  { ...caseInsensitive, ...global }
+);
+```
+
 ## Examples
 
 ### Email Validation
@@ -217,6 +267,95 @@ urlRegex.test("http:/example.com"); // false
 urlRegex.test("example.com"); // false
 ```
 
+### Password Validation with Lookahead
+
+Using lookahead assertions to validate password requirements without consuming characters:
+
+```typescript
+import {
+  regex,
+  startOfLine,
+  endOfLine,
+  positiveLookahead,
+  any,
+  zeroOrMore,
+  digits,
+  upperLetters,
+  lowerLetters,
+  literal,
+  anyOf,
+} from "semreg";
+
+// Password must contain:
+// - At least one digit
+// - At least one uppercase letter
+// - At least one lowercase letter
+// - At least one special character
+// - Minimum 8 characters
+const passwordRegex = regex(
+  startOfLine,
+  // Lookahead for at least one digit
+  positiveLookahead(zeroOrMore(any), digits),
+  // Lookahead for at least one uppercase letter
+  positiveLookahead(zeroOrMore(any), upperLetters),
+  // Lookahead for at least one lowercase letter
+  positiveLookahead(zeroOrMore(any), lowerLetters),
+  // Lookahead for at least one special character
+  positiveLookahead(zeroOrMore(any), anyOf(literal("!@#$%^&*"))),
+  // Match at least 8 characters
+  repeat(any, atLeast(8)),
+  endOfLine
+);
+
+// Testing valid passwords
+passwordRegex.test("Pass123!"); // true
+passwordRegex.test("Secur3@Pass"); // true
+
+// Testing invalid passwords
+passwordRegex.test("password"); // false (no digit, uppercase, or special char)
+passwordRegex.test("Pass123"); // false (no special character)
+passwordRegex.test("Pass!"); // false (too short)
+```
+
+### Price Extraction with Lookbehind
+
+Using lookbehind assertions to match numbers only when preceded by a currency symbol:
+
+```typescript
+import {
+  regex,
+  positiveLookbehind,
+  negativeLookbehind,
+  literal,
+  digits,
+  oneOrMore,
+  optional,
+  global,
+} from "semreg";
+
+// Match prices with dollar sign
+const priceRegex = regex(
+  positiveLookbehind(literal("$")),
+  oneOrMore(digits),
+  optional(literal("."), repeat(digits, exactly(2))),
+  { global: true }
+);
+
+const text = "Items cost $10.99, $25.50, and $100. ID: 12345";
+const prices = text.match(priceRegex);
+console.log(prices); // ["10.99", "25.50", "100"]
+
+// Match numbers NOT preceded by dollar sign
+const nonPriceRegex = regex(
+  negativeLookbehind(literal("$")),
+  oneOrMore(digits),
+  global
+);
+
+const numbers = text.match(nonPriceRegex);
+console.log(numbers); // ["0", "99", "5", "50", "00", "12345"]
+```
+
 ## Custom Patterns
 
 You can create your own reusable patterns:
@@ -237,23 +376,6 @@ const productCodeRegex = regex(
   endOfLine
 );
 ```
-
-## TODO
-
-Operators that could be implemented soon
-
-### 1. Lookahead and Lookbehind
-
-- `positiveLookahead(...)`: Positive lookahead (`(?=...)`)
-- `negativeLookahead(...)`: Negative lookahead (`(?!...)`)
-- `positiveLookbehind(...)`: Positive lookbehind (`(?<=...)`)
-- `negativeLookbehind(...)`: Negative lookbehind (`(?<!...)`)
-
-### 2. Flags and Options
-
-- `caseInsensitive`: Enable case-insensitive matching (`i`)
-- `global`: Enable global matching (`g`)
-- `multiline`: Enable multiline matching (`m`)
 
 ## License
 
